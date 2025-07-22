@@ -78,12 +78,12 @@ function Contact(): React.ReactElement {
         )}
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-400">
-            For inquiries, please contact:
+            For inquiries, support, or questions please contact:
           </p>
           <p className="text-lg font-semibold text-red-600">
             <a href="mailto:support@1228labs.com">support@1228labs.com</a>
           </p>
-          <p>Or shoot us a call at <a href="tel:540-239-1723">540-239-1723</a></p>
+          <p>Or shoot us a call at <a href="tel:540-239-1723"><span className="text-red-600">540-239-1723</span></a></p>
         </div>
       </div>
     </section>

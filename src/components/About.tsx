@@ -1,10 +1,15 @@
 import React from 'react';
+import useInView from '../hooks/useInView';
 
 function About(): React.ReactElement {
+  const { ref, isIntersecting } = useInView({ threshold: 0.2 });
+
   return (
-    <section id="about" className="py-20 bg-white text-gray-800">
-      <div className="max-w-4xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl text-red-600 font-extrabold text-center mb-8 uppercase tracking-wider">
+    <section id="about" ref={ref} className="py-20 bg-white text-gray-800 overflow-hidden">
+      <div
+        className={`max-w-4xl mx-auto px-6 transform transition duration-700 ease-out ${isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+      >
+        <h2 className="text-3xl md:text-4xl text-red-600 font-extrabold text-center mb-8 uppercase tracking-wider text-shadow-lg">
           About The Red Dragons
         </h2>
         <img src="/src/assets/116th-logo.png" alt="116th Infantry Regiment Logo" className="w-1/2 mx-auto mb-8" />

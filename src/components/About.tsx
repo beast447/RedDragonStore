@@ -4,11 +4,12 @@ function About(): React.ReactElement {
   return (
     <section id="about" className="py-20 bg-white text-gray-800">
       <div className="max-w-4xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-8 uppercase tracking-wider">
-          About The 116th
+        <h2 className="text-3xl md:text-4xl text-red-600 font-extrabold text-center mb-8 uppercase tracking-wider">
+          About The Red Dragons
         </h2>
+        <img src="/src/assets/116th-logo.png" alt="116th Infantry Regiment Logo" className="w-1/2 mx-auto mb-8" />
         <p className="leading-relaxed mb-4 text-justify">
-          The <span className="font-semibold">116th Infantry Regiment</span>, the oldest continuous service regiment in the Virginia National Guard and seventh oldest in the U.S. Army, traces its roots back to 1741. Over nearly three centuries, the regiment has fought in almost every major American conflict from the French and Indian War to today.
+          1st Battalion of the <span className="font-semibold">116th Infantry Regiment</span>, the oldest continuous service regiment in the Virginia National Guard and seventh oldest in the U.S. Army, traces its roots back to 1741. Over nearly three centuries, the regiment has fought in almost every major American conflict from the French and Indian War to today.
         </p>
         <p className="leading-relaxed mb-4 text-justify">
           Its storied lineage includes valorous service in the Revolutionary War at Cowpens, Guilford Court House, and Yorktown. During the Civil War, the unit formed part of the famed <span className="font-semibold">Stonewall Brigade</span>, engaging in nearly every major battle of the Army of Northern Virginia.

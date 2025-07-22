@@ -5,22 +5,22 @@ const products = [
   {
     title: 'Red Dragons T-Shirt',
     price: '$25.00',
-    image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80',
+    image: '',
   },
   {
     title: 'Red Dragons Hoodie',
     price: '$45.00',
-    image: 'https://images.unsplash.com/photo-1552477821-4263111a755c?auto=format&fit=crop&w=900&q=80',
+    image: '',
   },
   {
     title: 'Athletic Shorts',
     price: '$30.00',
-    image: 'https://images.unsplash.com/photo-1629779472563-a767cf0c5f41?auto=format&fit=crop&w=900&q=80',
+    image: '',
   },
   {
     title: 'Red Dragons Hat',
     price: '$20.00',
-    image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=80',
+    image: '',
   },
 ];
 

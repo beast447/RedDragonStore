@@ -69,9 +69,9 @@ function About(): React.ReactElement {
     },
   ];
 
-  const [active, setActive] = React.useState<string | null>(null);
+  const [currentIndex, setCurrentIndex] = React.useState(0);
 
-  const activeEvent = events.find((e) => e.id === active);
+  const activeEvent = events[currentIndex];
 
   const sectionBgStyle: React.CSSProperties | undefined = activeEvent?.bgImage
     ? {
@@ -111,36 +111,72 @@ function About(): React.ReactElement {
           <div
             className="flex items-center relative overflow-x-auto space-x-6 md:space-x-12 lg:space-x-24 px-4 md:px-0 scroll-smooth snap-x snap-mandatory"
           >
-            {events.map((ev) => (
-              <button
+            {events.map((ev, idx) => (
+              <div
                 key={ev.id}
-                type="button"
-                onClick={() =>
-                  setActive((prev) => (prev === ev.id ? null : ev.id))
-                }
-                className="flex flex-col items-center gap-2 snap-start focus:outline-none flex-shrink-0 min-w-[72px] md:min-w-0"
+                className="flex flex-col items-center gap-2 snap-start flex-shrink-0 min-w-[72px] md:min-w-0"
               >
-                <span
-                  className={`inline-block w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full border-2 border-white transition-colors duration-300 ${
-                    active === ev.id ? 'bg-red-600' : 'bg-gray-400'
-                  }`}
-                />
+                {/* Dot with animated pulse when active */}
+                <span className="relative flex items-center justify-center">
+                  {/* Pulse ring */}
+                  <span
+                    className={`absolute inline-flex h-full w-full rounded-full transition-opacity duration-500 ${
+                      currentIndex === idx ? 'animate-ping bg-red-500/70' : 'opacity-0'
+                    }`}
+                  />
+                  {/* Core dot */}
+                  <span
+                    className={`relative inline-flex rounded-full border-2 border-white transition-colors duration-300 transform hover:scale-110 w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 ${
+                      currentIndex === idx ? 'bg-red-600' : 'bg-gray-400'
+                    }`}
+                  />
+                </span>
                 <span
                   className={`whitespace-nowrap text-xs sm:text-sm font-medium ${
-                    active === ev.id ? 'text-red-500' : 'text-gray-300'
+                    currentIndex === idx ? 'text-red-500' : 'text-gray-300'
                   }`}
                 >
                   {ev.year}
                 </span>
-              </button>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Active event content */}
+        {/* Active event content with navigation arrows */}
         {activeEvent && (
-          <div className="mt-12 max-w-3xl mx-auto px-4 md:px-8">
-            <div className="bg-white/80 backdrop-blur-lg shadow-lg rounded-lg p-6 md:p-8">
+          <div className="mt-12 max-w-3xl mx-auto px-4 md:px-8 flex items-center justify-between gap-4">
+            {/* Prev arrow */}
+            <button
+              type="button"
+              onClick={() =>
+                setCurrentIndex((prev) =>
+                  prev === 0 ? events.length - 1 : prev - 1,
+                )
+              }
+              aria-label="Previous event"
+              className="p-3 rounded-full bg-white/40 hover:bg-white/60 transition-colors backdrop-blur focus:outline-none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6 text-gray-900"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 19.5L8.25 12l7.5-7.5"
+                />
+              </svg>
+            </button>
+
+            <div
+              key={activeEvent.id}
+              className="flex-1 bg-white/80 backdrop-blur-lg shadow-lg rounded-lg p-6 md:p-8 animate-fade"
+            >
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-gray-900 text-center">
                 {activeEvent.title}
               </h3>
@@ -148,6 +184,33 @@ function About(): React.ReactElement {
                 {activeEvent.description}
               </p>
             </div>
+
+            {/* Next arrow */}
+            <button
+              type="button"
+              onClick={() =>
+                setCurrentIndex((prev) =>
+                  prev === events.length - 1 ? 0 : prev + 1,
+                )
+              }
+              aria-label="Next event"
+              className="p-3 rounded-full bg-white/40 hover:bg-white/60 transition-colors backdrop-blur focus:outline-none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6 text-gray-900"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
           </div>
         )}
       </div>

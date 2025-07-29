@@ -17,7 +17,7 @@ interface TimelineItemProps {
 }
 
 const TimelineItem: React.FC<TimelineItemProps> = ({ event, isActive, onToggle }) => {
-  const { ref, isIntersecting } = useInView({ threshold: 0.15 });
+  const { ref, isIntersecting } = useInView<HTMLDivElement>({ threshold: 0.15 });
 
   return (
     <div

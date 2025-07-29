@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import type { MutableRefObject } from 'react';
 
 /**
  * useInView hook
@@ -7,8 +8,8 @@ import { useEffect, useRef, useState } from 'react';
  */
 export default function useInView<T extends HTMLElement = HTMLElement>(
   options?: IntersectionObserverInit,
-): { ref: React.RefObject<T>; isIntersecting: boolean } {
-  const ref = useRef<T>(null);
+): { ref: MutableRefObject<T | null>; isIntersecting: boolean } {
+  const ref = useRef<T | null>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {

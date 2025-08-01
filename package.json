@@ -14,7 +14,8 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.11",
-    "firebase": "^9.19.0"
+    "firebase": "^9.19.0",
+    "@paypal/react-paypal-js": "^8.8.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

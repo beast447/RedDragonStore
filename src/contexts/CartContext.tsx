@@ -1,5 +1,8 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
+import { useAuth } from './AuthContext';
 
 export interface CartItem {
   id: string; // unique identifier
@@ -25,6 +28,7 @@ export function useCart() {
 }
 
 export function CartProvider({ children }: { children: ReactNode }): React.ReactElement {
+  const { user } = useAuth();
   const [items, setItems] = useState<CartItem[]>([]);
 
   const addItem = (item: Omit<CartItem, 'quantity'>) => {
@@ -42,6 +46,39 @@ export function CartProvider({ children }: { children: ReactNode }): React.React
   };
 
   const clearCart = () => setItems([]);
+
+  // Load cart from Firestore when the user logs in
+  useEffect(() => {
+    if (!user) {
+      // If logged out, simply clear the cart for now
+      setItems([]);
+      return;
+    }
+
+    (async () => {
+      try {
+        const cartRef = doc(db, 'carts', user.uid);
+        const snap = await getDoc(cartRef);
+        if (snap.exists()) {
+          const data = snap.data();
+          if (Array.isArray(data.items)) {
+            setItems(data.items as CartItem[]);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load cart', err);
+      }
+    })();
+  }, [user]);
+
+  // Persist cart to Firestore whenever it changes for a logged-in user
+  useEffect(() => {
+    if (!user) return;
+    const cartRef = doc(db, 'carts', user.uid);
+    setDoc(cartRef, { items }, { merge: true }).catch((err) => {
+      console.error('Failed to save cart', err);
+    });
+  }, [items, user]);
 
   const value: CartContextValue = { items, addItem, removeItem, clearCart };
 

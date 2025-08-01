@@ -11,7 +11,7 @@ interface ProductCardProps {
 
 function ProductCard({ title, price, image, onSelect }: ProductCardProps): React.ReactElement {
   const { addItem } = useCart();
-  const numericPrice = parseFloat(price.replace(/[^0-9.]/g, ''));
+  const numericPrice = parseFloat(price.replace(/[^0-9.]/g, '')) || 0;
   return (
     <div
       className="group bg-white rounded-lg shadow-md overflow-hidden flex flex-col transition-transform hover:-translate-y-1 cursor-pointer"

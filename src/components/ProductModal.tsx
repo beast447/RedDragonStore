@@ -25,6 +25,15 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, product, o
   const [activeImage, setActiveImage] = React.useState(0);
   const [zoomSrc, setZoomSrc] = React.useState<string | null>(null);
 
+  // Figure out which price we should show – if the user picked a specific
+  // variant use its retail_price, otherwise fall back to the product-level
+  // price that was loaded earlier.
+  const selectedVariantPrice =
+    selectedVariant && product?.variants
+      ? product.variants.find((v) => v.id === selectedVariant)?.retail_price
+      : null;
+  const displayPrice = selectedVariantPrice ?? product?.price ?? '...';
+
   React.useEffect(() => {
     // reset on product change
     setSelectedVariant(null);
@@ -107,7 +116,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, product, o
         )}
 
         <div className="mt-6 flex justify-between items-center">
-          <span className="text-xl font-bold text-red-600">{product.price}</span>
+          <span className="text-xl font-bold text-red-600">{displayPrice}</span>
           <button
             type="button"
             disabled={product.variants && !selectedVariant}

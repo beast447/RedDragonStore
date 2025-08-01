@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 
 // Firebase configuration values are pulled from Vite environment variables.
 // Create a .env file in the project root and add:
@@ -18,4 +19,6 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-export const firebaseApp = initializeApp(firebaseConfig); 
+export const firebaseApp = initializeApp(firebaseConfig);
+// Firestore instance for database operations
+export const db = getFirestore(firebaseApp); 

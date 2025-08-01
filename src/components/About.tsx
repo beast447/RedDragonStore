@@ -46,7 +46,7 @@ function About(): React.ReactElement {
       title: 'World War I',
       description:
         'Awarded the French Croix de Guerre and home to Medal of Honor recipient Sgt. Earle Gregory for heroism on the Western Front.',
-      bgClass: 'bg-yellow-50',
+      bgClass: 'bg-yellow-500',
       bgImage: wwiImg,
     },
     {
